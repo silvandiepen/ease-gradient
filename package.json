@@ -1,0 +1,17 @@
+{
+  "name": "@henris/ease-gradient",
+  "version": "0.0.1",
+  "description": "Background gradients with an ease",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "scss",
+    "henris",
+    "background",
+    "ease"
+  ],
+  "author": "Sil van Diepen",
+  "license": "MIT"
+}
