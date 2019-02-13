@@ -2,7 +2,7 @@
 	"name": "@henris/ease-gradient",
 	"version": "0.0.1",
 	"description": "Background gradients with an ease",
-	"main": "index.js",
+	"main": "index.scss",
 	"scripts": {
 		"test": "npm run test:sass && npm run test:node-sass",
 		"test:sass": "sass test/index.scss dist/test/sass/index.css",
