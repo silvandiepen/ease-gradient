@@ -1,4 +1,4 @@
-@function ease($ease: 'linear', $t: 0, $b: 0, $c: 10, $d: 10) {
+@function create-ease($ease: 'linear', $t: 0, $b: 0, $c: 10, $d: 10) {
 	// $t = time
 	// $b = start
 	// $c = chang

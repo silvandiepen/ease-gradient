@@ -10,7 +10,8 @@
 		@if type-of($ease) == 'list' AND length($ease) == 4 {
 			$mix-percentage: bezier($i, $ease, 10);
 		} @else {
-			$mix-percentage: percentage(decimal-round(ease($ease, $i)) / 10);
+			$ease: decimal-round(create-ease($ease, $i));
+			$mix-percentage: percentage($ease / 10);
 		}
 		$percentage: percentage($i/10);
 		$color: mix(nth($colors, 1), nth($colors, 2), $percentage);
