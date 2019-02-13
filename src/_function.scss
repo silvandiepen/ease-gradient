@@ -105,12 +105,7 @@
 	@else if $ease == 'easeInOutSin' {
     @return (1 + sin(pi() * $t - pi() / 2)) / 2;
   }
-	
-	
-	
-
 	// Linear
-
 	@else {
 		@return $c * $t / $d + $b;
 	}
