@@ -9,7 +9,8 @@
 		"test:node-sass": "node-sass test/index.scss dist/test/node-sass/index.css",
 		"build": "npm run build:sass && npm run build:node-sass",
 		"build:sass": "sass index.scss dist/sass/index.css",
-		"build:node-sass": "node-sass index.scss dist/node-sass/index.css"
+		"build:node-sass": "node-sass index.scss dist/node-sass/index.css",
+		"prepublishOnly": "npm run test && npm run build"
 	},
 	"keywords": [
 		"scss",
