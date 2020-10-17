@@ -23,6 +23,6 @@
 	"devDependencies": {
 		"node-sass": "^4.11.0",
 		"sass": "^1.17.0",
-		"sass-true": "^4.0.0"
+		"sass-true": "^6.0.1"
 	}
 }
