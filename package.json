@@ -1,28 +1,22 @@
 {
-	"name": "@henris/ease-gradient",
-	"version": "0.0.2",
-	"description": "Background gradients with an ease",
-	"main": "index.scss",
-	"scripts": {
-		"test": "npm run test:sass && npm run test:node-sass",
-		"test:sass": "sass test/index.scss dist/test/sass/index.css",
-		"test:node-sass": "node-sass test/index.scss dist/test/node-sass/index.css",
-		"build": "npm run build:sass && npm run build:node-sass",
-		"build:sass": "sass index.scss dist/sass/index.css",
-		"build:node-sass": "node-sass index.scss dist/node-sass/index.css",
-		"prepublishOnly": "npm run test && npm run build"
-	},
-	"keywords": [
-		"scss",
-		"henris",
-		"background",
-		"ease"
-	],
-	"author": "Sil van Diepen",
-	"license": "MIT",
-	"devDependencies": {
-		"node-sass": "^4.11.0",
-		"sass": "^1.17.0",
-		"sass-true": "^4.0.0"
-	}
+  "name": "@sil/ease-gradient",
+  "version": "0.0.1",
+  "description": "Background gradients with an ease",
+  "main": "index.scss",
+  "scripts": {
+    "test": "sass test/index.scss dist/test/sass/index.css",
+    "build": "sass index.scss dist/sass/index.css",
+    "build:example": "sass example/example.scss public/custom.css",
+    "prepublishOnly": "npm run test && npm run build"
+  },
+  "keywords": [
+    "scss",
+    "background",
+    "ease"
+  ],
+  "author": "Sil van Diepen",
+  "license": "MIT",
+  "dependencies": {
+    "sass": "^1.32.13"
+  }
 }

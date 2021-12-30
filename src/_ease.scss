@@ -2,63 +2,92 @@
 //
 //
 @function to-ease($colors, $ease) {
-	$stops: ();
+  $stops: ();
 
-	@for $i from 1 through 10 {
-		$stop: ();
-		$mix-percentage: 0;
-		@if type-of($ease) == 'list' AND length($ease) == 4 {
-			$mix-percentage: bezier($i, $ease, 10);
-		} @else {
-			$ease: decimal-round(create-ease($ease, $i));
-			$mix-percentage: percentage($ease / 10);
-		}
-		$percentage: percentage($i/10);
-		$color: mix(nth($colors, 1), nth($colors, 2), $percentage);
-		$stops: append($stops, ($color, $mix-percentage));
-	}
-	@return $stops;
+  $steps: 10;
+  @for $i from 1 through $steps {
+    $stop: ();
+    $mix-percentage: 0;
+
+    @if type-of($ease) == "list" AND length($ease) == 4 {
+      $mix-percentage: bezier($i, $ease, $steps);
+    } @else {
+      $ease: decimal-round(create-ease($ease, $i));
+      $mix-percentage: percentage($ease / $steps);
+    }
+
+    $percentage: percentage($i/$steps);
+    $color: mix(nth($colors, 1), nth($colors, 2), $mix-percentage);
+    $stops: append($stops, ($color, $percentage));
+  }
+  @return $stops;
 }
+
+$breakpoint-XXS-mobile: 300px;
+$breakpoint-XS-mobile: 360px;
+$breakpoint-S-mobile: 375px;
+$breakpoint-M-mobile: 414px;
+$breakpoint-mobile: 592px;
+$breakpoint-XS-tablet: 668px;
+$breakpoint-S-tablet: 728px;
+$breakpoint-M-tablet: 768px;
+$breakpoint-ML-tablet: 800px;
+$breakpoint-tablet: 1024px;
+$breakpoint-S-desktop: 1080px;
+$breakpoint-L-desktop: 1366px;
+$breakpoint-XL-desktop: 1440px;
+$breakpoint-XXL-desktop: 1600px;
+$breakpoint-XXXL-desktop: 1700px;
+$breakpoint-XXXXL-desktop: 1920px;
 
 // The function
 @function ease-gradient($args...) {
-	$gradient-colors: ();
-	$gradient-ease: null;
-	$gradient-direction: null;
+  $gradient-colors: ();
+  $gradient-ease: null;
+  $gradient-direction: null;
 
-	@each $arg in $args {
-		@if is-color($arg) {
-			$gradient-colors: append($gradient-colors, $arg);
-		}
-		@if is-direction($arg) {
-			$gradient-direction: $arg;
-		}
-	}
+  @each $arg in $args {
+    @if is-color($arg) {
+      $gradient-colors: append($gradient-colors, $arg);
+    }
+    @if is-direction($arg) {
+      $gradient-direction: $arg;
+    }
+    @if is-ease($arg) {
+      $gradient-ease: $arg;
+    }
+  }
 
-	@if is-color(nth($args, length($args))) {
-		@debug "your gradient ends with a color, thus can't be an easing gradient";
-		@return linear-gradient($args);
-	} @else if is-curve(nth($args, length($args))) {
-		@if $gradient-direction {
-			@if length($gradient-colors) > 2 {
-				@return linear-gradient(
-					$gradient-direction,
-					to-string($gradient-colors, ' ')
-				);
-			} @else {
-				$colors: ();
-				$stops: to-ease($gradient-colors, nth($args, length($args)));
-				@each $stop in $stops {
-					$colors: append($colors, to-string($stop, ' '));
-				}
-				@return linear-gradient($gradient-direction, to-string($colors, ','));
-			}
-		} @else {
-			@if length($gradient-colors) > 2 {
-				@return linear-gradient(to-string($gradient-colors, ','));
-			} @else {
-				@return linear-gradient(to-ease($gradient-colors));
-			}
-		}
-	}
+  @if is-color(nth($args, length($args))) {
+    @debug "your gradient ends with a color, thus can't be an easing gradient";
+    @return linear-gradient($args);
+  } @else if is-curve(nth($args, length($args))) {
+    @if $gradient-direction {
+      @if length($gradient-colors) > 2 {
+        @return linear-gradient(
+          $gradient-direction,
+          to-string($gradient-colors, " ")
+        );
+      } @else {
+        $colors: ();
+
+        @debug to-ease($gradient-colors, $gradient-ease);
+        $stops: to-ease($gradient-colors, $gradient-ease);
+
+        @each $stop in $stops {
+          $colors: append($colors, to-string($stop, " "));
+        }
+        @return linear-gradient(
+          $gradient-direction,
+          unquote(to-string($colors, ","))
+        );
+      }
+    } @else {
+      @if length($gradient-colors) > 2 {
+        @return linear-gradient(unquote(to-string($gradient-colors, ",")));
+      } @else {
+        @return linear-gradient(unquote(to-ease($gradient-colors)));
+      }
+    }
+  }
 }

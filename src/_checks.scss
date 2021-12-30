@@ -1,4 +1,3 @@
-
 // Checkers
 //
 // Check functions check all values if they are the right type and cast them into the right type where
@@ -7,49 +6,85 @@
 //
 // Check if the given value is a color.
 @function is-color($col) {
-	// @debug $col;
-	@if type-of($col) == 'color' {
-		@return true;
-	} @else {
-		@return false;
-	}
+  // @debug $col;
+  @if type-of($col) == "color" {
+    @return true;
+  } @else {
+    @return false;
+  }
 }
 
 //
 // Check if the given value is or can be a direction;
 @function is-direction($dir) {
-	$return: false;
+  $return: false;
 
-	// Check first if its in written directions:
-	$directions: (
-		'to top',
-		'to right',
-		'to bottom',
-		'to left',
-		'to right top',
-		'to right bottom',
-		'to left bottom',
-		'to left top'
-	);
+  // Check first if its in written directions:
+  $directions: (
+    "to top",
+    "to right",
+    "to bottom",
+    "to left",
+    "to right top",
+    "to right bottom",
+    "to left bottom",
+    "to left top"
+  );
 
-	@if type-of($dir) == 'list' AND $return == false {
-		@if contains($directions, to-string($dir, ' ')) {
-			$return: true;
-		}
-	}
+  @if type-of($dir) == "list" AND $return == false {
+    @if contains($directions, to-string($dir, " ")) {
+      $return: true;
+    }
+  }
 
-	// Check first if its in written directions:
-	@if type-of($dir) == 'number' AND $return == false {
-		@if is-angle($dir) {
-			$return: true;
-		}
-	}
+  // Check first if its in written directions:
+  @if type-of($dir) == "number" AND $return == false {
+    @if is-angle($dir) {
+      $return: true;
+    }
+  }
 
-	@return $return;
+  @return $return;
 }
 
 //
 // Check if the given value is or can be a curve;
 @function is-curve($cur) {
-	@return true;
+  @return true;
+}
+
+@function is-ease($val) {
+  $easings: (
+    ease-in-cubic,
+    ease-in-quad,
+    ease-out-quad,
+    ease-out-cubic,
+    ease-in-out-cubic,
+    ease-in-quart,
+    ease-out-quart,
+    ease-in-out-quart,
+    ease-in-quint,
+    ease-out-quite,
+    ease-in-out-quint,
+    ease-in-sine,
+    ease-out-sine,
+    ease-in-out-sine,
+    ease-in-expo,
+    ease-out-expo,
+    ease-in-out-expo,
+    ease-in-circ,
+    ease-out-circ,
+    ease-in-out-circ,
+    ease-in-sin,
+    ease-out-sin,
+    ease-in-out-sin,
+    linear
+  );
+
+  @each $ease in $easings {
+    @if $ease == $val {
+      @return true;
+    }
+  }
+  @return false;
 }

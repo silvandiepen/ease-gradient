@@ -1,0 +1,68 @@
+@import "../index.scss";
+$easings: (
+  ease-in-cubic,
+  ease-in-quad,
+  ease-out-quad,
+  ease-out-cubic,
+  ease-in-out-cubic,
+  ease-in-quart,
+  ease-out-quart,
+  ease-in-out-quart,
+  ease-in-quint,
+  ease-out-quite,
+  ease-in-out-quint,
+  ease-in-sine,
+  ease-out-sine,
+  ease-in-out-sine,
+  ease-in-expo,
+  ease-out-expo,
+  ease-in-out-expo,
+  ease-in-circ,
+  ease-out-circ,
+  ease-in-out-circ,
+  ease-in-sin,
+  ease-out-sin,
+  ease-in-out-sin,
+  linear
+);
+
+$directions: (
+  "to top",
+  "to right",
+  "to bottom",
+  "to left",
+  "to right top",
+  "to right bottom",
+  "to left bottom",
+  "to left top"
+);
+
+$classes: ();
+$divs: ();
+@each $ease in $easings {
+  $divs: append($divs, "<h4>#{$ease}</h4>");
+  $divs: append($divs, "<div class='examples'>");
+  @each $direction in $directions {
+    $class: #{$ease}-#{str-replace($direction, " ", "-")};
+    $div: "<div class='#{$class}' title='#{$direction}'></div>";
+    .#{$class} {
+      background-image: ease-gradient(red, blue, #{$ease}, #{$direction});
+    }
+    $classes: append($classes, $class);
+    $divs: append($divs, $div);
+  }
+  $divs: append($divs, "</div>");
+}
+
+.examples {
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+  div {
+    width: 5em;
+    height: 5em;
+    border-radius: 0.5em;
+    display: block;
+  }
+}
+// @debug to-string($divs, "");
